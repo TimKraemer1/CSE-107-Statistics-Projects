@@ -1,6 +1,16 @@
 import numpy as np
 from random import randint
 
+def print_help(type, matrix):
+    print(type)
+    print("     q:   0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9")
+    print(" p   ---------------------------------------------------------------------------------")
+    for i in range(len(matrix)):
+        print(str((i+1)/10) + " |     ", end="")
+        for j in range(len(matrix[0])):
+            print('{:.3f}'.format(matrix[i][j]) + "  ", end="")
+        print("")
+
 def coin1_n(p):
     n = 1
     while(randint(1,10) > p*10):
@@ -34,5 +44,5 @@ for _ in range(10000):
             n = 0
 mean_matrix = mean_matrix / 10000
 
-print(mean_matrix)
+print_help("mean", mean_matrix)
 
