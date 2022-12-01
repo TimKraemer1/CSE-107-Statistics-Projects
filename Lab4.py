@@ -3,12 +3,12 @@ from random import randint
 
 def print_help(type, matrix):
     print(type)
-    print("     q:   0.1    0.2    0.3    0.4    0.5    0.6    0.7    0.8    0.9")
+    print("    q:    0.1     0.2     0.3     0.4     0.5     0.6     0.7     0.8     0.9")
     print(" p   ---------------------------------------------------------------------------------")
     for i in range(len(matrix)):
-        print(str((i+1)/10) + " |     ", end="")
+        print(str((i+1)/10) + " |    ", end="")
         for j in range(len(matrix[0])):
-            print('{:.3f}'.format(matrix[i][j]) + "  ", end="")
+            print('{:.3f}'.format(matrix[i][j]) + "   ", end="")
         print("")
 
 def coin1_n(p):
@@ -29,6 +29,9 @@ for i in range(9):
     for j in range(9):
         mean_matrix[i][j] = 0
 
+sec_moment_mat = mean_matrix.copy()
+var_matrix = mean_matrix.copy()
+
 #initializations
 p = q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 n = 0
@@ -40,9 +43,14 @@ for _ in range(10000):
             n = coin1_n(i2)
             y = coin2_y(j2, n)
             mean_matrix[i1][j1] += y
+            sec_moment_mat[i1][j1] += y**2
             y = 0
             n = 0
 mean_matrix = mean_matrix / 10000
+sec_moment_mat = sec_moment_mat / 10000
+
+var_matrix = sec_moment_mat - (mean_matrix ** 2)
 
 print_help("mean", mean_matrix)
+print_help("variance", var_matrix)
 
